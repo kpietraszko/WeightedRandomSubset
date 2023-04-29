@@ -19,7 +19,7 @@ public static class WeightedRandomSubsetGenerator
 
             double currentRangeStart = 0;
 
-            foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible priorities)
+            foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
             {
                 var weight = kvp.Key;
                 var elementsWithThisWeight = kvp.Value;
@@ -34,6 +34,8 @@ public static class WeightedRandomSubsetGenerator
                 {
                     var randomPointOnThisWeightLine = randomPoint - currentRangeStart;
                     var index = (int)(randomPointOnThisWeightLine / weight);
+                    index = Math.Clamp(index, 0, elementsWithThisWeight.Count - 1); // helps with rounding edge-cases
+
                     pickedElements.Add(elementsWithThisWeight[index]);
                     elementsWithThisWeight.RemoveAt(index);
                     weightsSum -= weight;
