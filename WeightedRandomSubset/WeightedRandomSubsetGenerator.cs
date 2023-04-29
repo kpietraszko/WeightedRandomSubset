@@ -11,32 +11,32 @@ public static class WeightedRandomSubsetGenerator
         var pickedElements = new List<WeightedElement>(numberOfOffersToPick);
 
         var elementsByWeight = GroupByPriority(allElements);
+        var weightsSum = elementsByWeight.Gen().Sum(e => e.Value.Count * e.Key);
 
         for (int i = 0; i < numberOfOffersToPick; i++)
-        {
-            var prioritiesSum = elementsByWeight.Gen().Sum(e => e.Value.Count * e.Key);
-
-            var randomPoint = Random01() * prioritiesSum;
+        {           
+            var randomPoint = Random01() * weightsSum;
 
             double currentRangeStart = 0;
 
             foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible priorities)
             {
-                var priority = kvp.Key;
+                var weight = kvp.Key;
                 var elementsWithThisWeight = kvp.Value;
                 if (elementsWithThisWeight == null || elementsWithThisWeight.Count == 0) // probably redundant
                 {
                     continue;
                 }
 
-                var rangeEnd = currentRangeStart + elementsWithThisWeight.Count * priority;
+                var rangeEnd = currentRangeStart + elementsWithThisWeight.Count * weight;
 
                 if (randomPoint < rangeEnd)
                 {
                     var randomPointOnThisWeightLine = randomPoint - currentRangeStart;
-                    var index = (int)(randomPointOnThisWeightLine / priority);
+                    var index = (int)(randomPointOnThisWeightLine / weight);
                     pickedElements.Add(elementsWithThisWeight[index]);
                     elementsWithThisWeight.RemoveAt(index);
+                    weightsSum -= weight;
                     break;
                 }
 
@@ -61,6 +61,7 @@ public static class WeightedRandomSubsetGenerator
             if (!dict.TryGetValue(element.Weight, out var list))
             {
                 list = new ListPool<WeightedElement>(); // providing capacity doesn't change run time or total allocs
+                if (list.Count > 0) throw new Exception("List not empty!");
                 dict[element.Weight] = list;
             }
 

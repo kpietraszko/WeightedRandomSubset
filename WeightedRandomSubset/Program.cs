@@ -3,7 +3,9 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-//BenchmarkRunner.Run<Benchmark>();
+BenchmarkRunner.Run<Benchmark>(); return;
+
+// TODO: THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
 
 var totalOffersCount = 10_000;
 var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
@@ -54,6 +56,8 @@ AnsiConsole.Write(new BarChart()
     .AddItems(timesPickedPerWeightAveragePerElement
                 .Select(kvp => new BarChartItem(kvp.Key.ToString("N1"), Math.Round(kvp.Value,2)))));
 #endregion
+
+Console.ReadLine();
 
 static void ExecuteManySamples(WeightedElement[] allElements, int samples, Dictionary<float, long> timesPickedPerWeightValue, ProgressTask task)
 {

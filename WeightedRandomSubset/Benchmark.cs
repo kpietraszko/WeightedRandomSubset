@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Microsoft.Diagnostics.Tracing.Parsers.MicrosoftWindowsTCPIP;
 using System.Security.Cryptography;
 
 namespace WeightedRandomSubset;
@@ -9,7 +8,6 @@ namespace WeightedRandomSubset;
 public class Benchmark
 {
     private IReadOnlyList<WeightedElement> _allOffers;
-    private const int NumberOfOffersToPick = 50;
 
     [GlobalSetup]
     public void Setup()
@@ -18,7 +16,7 @@ public class Benchmark
         var totalOffersCount = 10_000;
         _allOffers = Enumerable.Range(0, totalOffersCount).Select(i =>
         {
-            var id = RandomNumberGenerator.GetInt32(99999);
+            var id = i; //RandomNumberGenerator.GetInt32(99999);
             var priority = ((Priority)RandomNumberGenerator.GetInt32(5)).ToWeight();
             return new WeightedElement(id, priority);
         }).ToArray();

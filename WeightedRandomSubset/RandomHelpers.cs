@@ -9,6 +9,6 @@ public static class RandomHelpers
     public static double Random01()
     {
         var randInt = RandomNumberGenerator.GetInt32(1, int.MaxValue);
-        return (double)randInt / int.MaxValue;
+        return (double)randInt / (int.MaxValue - 1);
     }
 }
