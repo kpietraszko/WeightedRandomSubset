@@ -2,7 +2,7 @@
 
 ## Opis algorytmu
 
-_algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępnie od P1 do P5_
+_algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępnie od P1 do P5._
 
 1. Oryginalny zbiór można postrzegać jako elementy ułożone na linii, gdzie waga (priorytet) elementu stanowi jego długość
 
