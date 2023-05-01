@@ -3,9 +3,9 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-BenchmarkRunner.Run<Benchmark>(); return;
+//BenchmarkRunner.Run<Benchmark>(); return;
 
-// TODO: THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
+// TODO: POSSIBLY THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
 
 var totalOffersCount = 10_000;
 var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
@@ -16,7 +16,7 @@ var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
 }).ToArray();
 
 
-var samples = 1_000_000; // TODO: test this on 10 million samples
+var samples = 10_000_000;
 var elementsCountPerWeightValue = allElements.GroupBy(e => e.Weight)
     .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
 

@@ -1,5 +1,4 @@
-﻿using Cathei.LinqGen;
-using ListPool;
+﻿using ListPool;
 using static WeightedRandomSubset.RandomHelpers;
 
 namespace WeightedRandomSubset;
@@ -11,7 +10,7 @@ public static class WeightedRandomSubsetGenerator
         var pickedElements = new List<WeightedElement>(numberOfOffersToPick);
 
         var elementsByWeight = GroupByPriority(allElements);
-        var weightsSum = elementsByWeight.Gen().Sum(e => e.Value.Count * e.Key);
+        var weightsSum = elementsByWeight.Sum(e => e.Value.Count * e.Key);
 
         for (int i = 0; i < numberOfOffersToPick; i++)
         {           
@@ -63,7 +62,6 @@ public static class WeightedRandomSubsetGenerator
             if (!dict.TryGetValue(element.Weight, out var list))
             {
                 list = new ListPool<WeightedElement>(); // providing capacity doesn't change run time or total allocs
-                if (list.Count > 0) throw new Exception("List not empty!");
                 dict[element.Weight] = list;
             }
 
