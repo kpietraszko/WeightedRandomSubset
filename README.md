@@ -14,10 +14,10 @@ _algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępni
 ![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
 
 4. N razy (gdzie N to liczba elementów jakie chcemy otrzymać):
-  1. Wylosować punkt na powyższej linii (liczbę od 0 do sumy wag wszystkich elementów)
-  2. Policzyć przedziały list z kroku 3 na linii (count listy razy jej waga)
-  3. Znaleźć element który leży w tym punkcie (patrz poniżej)
-  4. Skrócić linię (zakres losowania) o wagę wylosowanego elementu
+    1. Wylosować punkt na powyższej linii (liczbę od 0 do sumy wag wszystkich elementów)
+    2. Policzyć przedziały list z kroku 3 na linii (count listy razy jej waga)
+    3. Znaleźć element który leży w tym punkcie (patrz poniżej)
+    4. Skrócić linię (zakres losowania) o wagę wylosowanego elementu
   
 #### Szczegóły kroku 4.iii
 Na podstawie przedziałów z 4.ii określić w której liście jest wylosowany element/punkt.
@@ -51,10 +51,10 @@ _the algorithm assumes that there's a finite number of possible priorities - ten
 ![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
 
 4. N times (where N is the number of elements we wish to retrieve):
-  1. Pick a random point on the line (number between 0 and all elements' weights' sum)
-  2. Calculate the ranges of the lists from step 3 (list's count times its weight)
-  3. Find out which element lies on this point (see below)
-  4. Shorten the line (the randomisation range) by the weight of the picked element
+    1. Pick a random point on the line (number between 0 and all elements' weights' sum)
+    2. Calculate the ranges of the lists from step 3 (list's count times its weight)
+    3. Find out which element lies on this point (see below)
+    4. Shorten the line (the randomisation range) by the weight of the picked element
 
   
 #### Details of step 4.iii
