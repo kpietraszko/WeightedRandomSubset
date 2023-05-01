@@ -4,11 +4,11 @@
 
 _algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępnie od P1 do P5_
 
-1. Ułożyć elementy obok siebie na linii, gdzie waga (priorytet) elementu stanowi jego długość
+1. Oryginalny zbiór można postrzegać jako elementy ułożone na linii, gdzie waga (priorytet) elementu stanowi jego długość
 
 ![unordered](https://user-images.githubusercontent.com/17947254/235475103-59920023-b5ab-47fd-a9df-84bfcbd0a564.svg)
 
-2. Pogrupować i posortować elementy na tej linii po ich wadze (priorytecie)
+2. Pogrupować i posortować elementy po ich wadze (priorytecie)
 3. Zapisać elementy w oddzielnych listach per waga (priorytet)
 
 ![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
@@ -41,11 +41,11 @@ Wybiera 50 elementów ze zbioru 10 tys. 10 mln powtórzeń:
 ## Algorithm description
 _the algorithm assumes that there's a finite number of possible priorities - tentatively P1 to P5_
 
-1. Lay out the elements on a line, the element's weight (priority) determines its length
+1. The original set can be considered as elements laid out on a line, where the element's weight (priority) determines its length
 
 ![unordered](https://user-images.githubusercontent.com/17947254/235475103-59920023-b5ab-47fd-a9df-84bfcbd0a564.svg)
 
-2. Group and sort the elements on this line, by their weight (priority)
+2. Group and sort the elements by their weight (priority)
 3. Store the elements in separate lists per weight (priority)
 
 ![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
