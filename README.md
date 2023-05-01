@@ -60,5 +60,5 @@ _the algorithm assumes that there's a finite number of possible priorities - ten
 #### Details of step 4.iii
 Based on the ranges from step 4.ii determine on which list the element/point lies.
 Consider this list as a line segment on the main line.  
-Divide the distance of the points from this segment's start, by this list's weight (eg. 1.2)  
+Divide the distance of the point from this segment's start, by this list's weight (eg. 1.2)  
 This gives us the index of the element on this list - that's our randomly picked element.
