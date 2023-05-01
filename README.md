@@ -7,7 +7,7 @@ _algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępni
 
 1. Ułożyć elementy obok siebie na linii, gdzie waga (priorytet) elementu stanowi jego długość
 
-![unordered](https://user-images.githubusercontent.com/17947254/235474753-5ee87d6d-c284-4c0f-9867-2f16f913fe30.svg)
+![unordered](https://user-images.githubusercontent.com/17947254/235475103-59920023-b5ab-47fd-a9df-84bfcbd0a564.svg)
 
 2. Pogrupować i posortować elementy na tej linii po ich wadze (priorytecie)
 3. Zapisać elementy w oddzielnych listach per waga (priorytet)
@@ -33,7 +33,7 @@ _the algorithm assumes that there's a finite number of possible priorities - ten
 
 1. Lay out the elements on a line, the element's weight (priority) determines its length
 
-![unordered](https://user-images.githubusercontent.com/17947254/235474753-5ee87d6d-c284-4c0f-9867-2f16f913fe30.svg)
+![unordered](https://user-images.githubusercontent.com/17947254/235475103-59920023-b5ab-47fd-a9df-84bfcbd0a564.svg)
 
 2. Group and sort the elements on this line, by their weight (priority)
 3. Store the elements in separate lists per weight (priority)
