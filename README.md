@@ -27,6 +27,7 @@ Odległość wylosowanego punktu od początku tego odcinka, podzielić przez wag
 Otrzymujemy indeks elementu na tej liście - to jest nasz wylosowany element.
 
 ## Benchmark
+**TODO: update**
 | Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |------- |---------:|--------:|--------:|-------:|----------:|
 | Pick50 | 416.6 us | 5.29 us | 4.13 us | 1.9531 |   6.38 KB |
