@@ -1,5 +1,4 @@
 # Losowy Podzbiór Ważonych Elementów
-_english version below_
 
 ## Opis algorytmu
 
@@ -31,6 +30,12 @@ Otrzymujemy indeks elementu na tej liście - to jest nasz wylosowany element.
 | Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |------- |---------:|--------:|--------:|-------:|----------:|
 | Pick50 | 416.6 us | 5.29 us | 4.13 us | 1.9531 |   6.38 KB |
+
+## Rozkład / Distribution
+Rozkład wylosowanych elementów, pogrupowane po ich wadze. 
+Wybiera 50 elementów ze zbioru 10 tys. 10 mln powtórzeń:
+
+![image](https://user-images.githubusercontent.com/17947254/235504798-088d18e4-3f36-41fc-8fa2-7e1807dc0fb1.png)
 
 # Random Subset Of Weighted Elements
 ## Algorithm description
