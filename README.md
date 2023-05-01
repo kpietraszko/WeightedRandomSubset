@@ -27,6 +27,11 @@ Rozpatrywać tę listę jako krótszy odcinek na linii.
 Odległość wylosowanego punktu od początku tego odcinka, podzielić przez wagę (np. 1.2)  
 Otrzymujemy indeks elementu na tej liście - to jest nasz wylosowany element.
 
+## Benchmark
+| Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
+|------- |---------:|--------:|--------:|-------:|----------:|
+| Pick50 | 416.6 us | 5.29 us | 4.13 us | 1.9531 |   6.38 KB |
+
 # Random Subset Of Weighted Elements
 ## Algorithm description
 _the algorithm assumes that there's a finite number of possible priorities - tentatively P1 to P5_
