@@ -3,7 +3,7 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-//BenchmarkRunner.Run<Benchmark>(); return;
+BenchmarkRunner.Run<Benchmark>(); return;
 
 // TODO: POSSIBLY THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
 
@@ -67,12 +67,13 @@ static void ExecuteManySamples(WeightedElement[] allElements, int samples, Dicti
 
         foreach (var element in pickedElements)
         {
-            timesPickedPerWeightValue.TryGetValue(element.Weight, out var count);
-            timesPickedPerWeightValue[element.Weight] = count + 1;
+            var elementWeight = allElements.FirstOrDefault(e => e.Id == element).Weight;
+            timesPickedPerWeightValue.TryGetValue(elementWeight, out var count);
+            timesPickedPerWeightValue[elementWeight] = count + 1;
         }
 
-        var pickedIds = pickedElements.Select(e => e.Id).ToArray();
-        if (pickedIds.ToHashSet().Count != pickedIds.Count())
+        var pickedIds = pickedElements.Select(e => e).ToArray();
+        if (pickedIds.ToHashSet().Count != pickedIds.Length)
         {
             throw new Exception("Duplicate found!");
         }

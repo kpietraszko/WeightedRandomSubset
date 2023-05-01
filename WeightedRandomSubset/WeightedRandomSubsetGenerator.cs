@@ -5,11 +5,12 @@ namespace WeightedRandomSubset;
 
 public static class WeightedRandomSubsetGenerator
 {
-    public static IReadOnlyList<WeightedElement> PickN(IReadOnlyList<WeightedElement> allElements, int numberOfOffersToPick)
+    /// <returns>List of result Ids</returns>
+    public static IReadOnlyList<int> PickN(IReadOnlyList<WeightedElement> allElements, int numberOfOffersToPick)
     {
-        var pickedElements = new List<WeightedElement>(numberOfOffersToPick);
+        var pickedElements = new List<int>(numberOfOffersToPick);
 
-        var elementsByWeight = GroupByPriority(allElements);
+        var elementsByWeight = GroupByWeight(allElements, out var occuringWeights);
         var weightsSum = elementsByWeight.Sum(e => e.Value.Count * e.Key);
 
         for (int i = 0; i < numberOfOffersToPick; i++)
@@ -18,10 +19,11 @@ public static class WeightedRandomSubsetGenerator
 
             double currentRangeStart = 0;
 
-            foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
+            foreach(var weight in occuringWeights)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
             {
-                var weight = kvp.Key;
-                var elementsWithThisWeight = kvp.Value;
+                //var weight = kvp.Key;
+
+                var elementsWithThisWeight = elementsByWeight[weight];
                 if (elementsWithThisWeight == null || elementsWithThisWeight.Count == 0) // probably redundant
                 {
                     continue;
@@ -45,28 +47,33 @@ public static class WeightedRandomSubsetGenerator
             }
         }
 
-        foreach (var kvp in elementsByWeight)
+        foreach (var weight in occuringWeights)
         {
-            kvp.Value.Dispose();
+            elementsByWeight[weight].Dispose();
         }
 
         return pickedElements;
     }
 
-    private static SortedDictionary<float, ListPool<WeightedElement>> GroupByPriority(IReadOnlyList<WeightedElement> elements)
+    private static SortedDictionary<float, ListPool<int>> GroupByWeight(IReadOnlyList<WeightedElement> elements, out float[] occuringWeights)
     {
-        var dict = new SortedDictionary<float, ListPool<WeightedElement>>();
+        var dict = new SortedDictionary<float, ListPool<int>>(); // WARN: when iterated allocates over 5 times more than with regular dictionary
+        var occuringWeightsList = new List<float>();
 
         foreach (var element in elements)
         {
             if (!dict.TryGetValue(element.Weight, out var list))
             {
-                list = new ListPool<WeightedElement>(); // providing capacity doesn't change run time or total allocs
+                list = new ListPool<int>(); // providing capacity doesn't change run time or total allocs
                 dict[element.Weight] = list;
+                occuringWeightsList.Add(element.Weight);
             }
 
-            list.Add(element);
+            list.Add(element.Id);
         }
+
+        occuringWeights = occuringWeightsList.ToArray();
+        Array.Sort(occuringWeights);
 
         return dict;
     }
