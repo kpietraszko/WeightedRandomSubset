@@ -7,12 +7,12 @@ _algorytm zakłada, że możliwych priorytetów jest skończona liczba, wstępni
 
 1. Ułożyć elementy obok siebie na linii, gdzie waga (priorytet) elementu stanowi jego długość
 
-TU OBRAZEK1
+![unordered](https://user-images.githubusercontent.com/17947254/235474753-5ee87d6d-c284-4c0f-9867-2f16f913fe30.svg)
 
 2. Pogrupować i posortować elementy na tej linii po ich wadze (priorytecie)
 3. Zapisać elementy w oddzielnych listach per waga (priorytet)
 
-TU OBRAZEK2
+![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
 
 4. N razy (gdzie N to liczba elementów jakie chcemy otrzymać):
   1. Wylosować punkt na powyższej linii (liczbę od 0 do sumy wag wszystkich elementów)
@@ -33,12 +33,12 @@ _the algorithm assumes that there's a finite number of possible priorities - ten
 
 1. Lay out the elements on a line, the element's weight (priority) determines its length
 
-TU OBRAZEK1
+![unordered](https://user-images.githubusercontent.com/17947254/235474753-5ee87d6d-c284-4c0f-9867-2f16f913fe30.svg)
 
 2. Group and sort the elements on this line, by their weight (priority)
 3. Store the elements in separate lists per weight (priority)
 
-TU OBRAZEK2
+![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
 
 4. N times (where N is the number of elements we wish to retrieve):
   1. Pick a random point on the line (number between 0 and all elements' weights' sum)
