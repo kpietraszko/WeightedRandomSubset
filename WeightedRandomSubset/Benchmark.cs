@@ -26,6 +26,6 @@ public class Benchmark
     [Benchmark]
     public void Pick50()
     {
-        var result = WeightedRandomSubsetGenerator.PickN(_allOffers, 50);
+        WeightedRandomSubsetGenerator.PickN(_allOffers, 50);
     }
 }

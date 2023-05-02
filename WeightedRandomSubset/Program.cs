@@ -3,7 +3,10 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-BenchmarkRunner.Run<Benchmark>(); return;
+var summary = BenchmarkRunner.Run<Benchmark>(); // return;
+Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
+return;
+
 
 // TODO: POSSIBLY THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
 
@@ -15,6 +18,11 @@ var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
     return new WeightedElement(id, priority);
 }).ToArray();
 
+
+//while (true)
+//{
+//    WeightedRandomSubsetGenerator.PickN(allElements, 50); // alloc test
+//}
 
 var samples = 10_000_000;
 var elementsCountPerWeightValue = allElements.GroupBy(e => e.Weight)
@@ -34,7 +42,7 @@ AnsiConsole.Progress()
 #endregion
     .Start(ctx =>
     {
-        var task = ctx.AddTask("Picking random subsets many times");
+        var task = ctx.AddTask($"Picking random subsets {samples.ToString("N0")} times");
         ExecuteManySamples(allElements, samples, timesPickedPerWeightValue, task);
     });
 
@@ -61,13 +69,14 @@ Console.ReadLine();
 
 static void ExecuteManySamples(WeightedElement[] allElements, int samples, Dictionary<float, long> timesPickedPerWeightValue, ProgressTask task)
 {
+    var weightOfElementLookup = allElements.ToDictionary(e => e.Id, e => e.Weight);
     for (int i = 0; i < samples; i++)
     {
         var pickedElements = WeightedRandomSubsetGenerator.PickN(allElements, 50);
 
         foreach (var element in pickedElements)
         {
-            var elementWeight = allElements.FirstOrDefault(e => e.Id == element).Weight;
+            var elementWeight = weightOfElementLookup[element];
             timesPickedPerWeightValue.TryGetValue(elementWeight, out var count);
             timesPickedPerWeightValue[elementWeight] = count + 1;
         }

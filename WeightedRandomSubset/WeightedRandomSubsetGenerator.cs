@@ -8,10 +8,10 @@ public static class WeightedRandomSubsetGenerator
     /// <returns>List of result Ids</returns>
     public static IReadOnlyList<int> PickN(IReadOnlyList<WeightedElement> allElements, int numberOfOffersToPick)
     {
-        var pickedElements = new List<int>(numberOfOffersToPick);
+        var pickedElements = new List<int>(numberOfOffersToPick); // allocates ~210 B
 
         var elementsByWeight = GroupByWeight(allElements, out var occuringWeights);
-        var weightsSum = elementsByWeight.Sum(e => e.Value.Count * e.Key);
+        var weightsSum = elementsByWeight.Sum(e => e.Value.Count * e.Key); // allocates ~155 B
 
         for (int i = 0; i < numberOfOffersToPick; i++)
         {           
@@ -19,7 +19,7 @@ public static class WeightedRandomSubsetGenerator
 
             double currentRangeStart = 0;
 
-            foreach(var weight in occuringWeights)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
+            foreach (var weight in occuringWeights)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
             {
                 //var weight = kvp.Key;
 
@@ -58,7 +58,7 @@ public static class WeightedRandomSubsetGenerator
     private static SortedDictionary<float, ListPool<int>> GroupByWeight(IReadOnlyList<WeightedElement> elements, out float[] occuringWeights)
     {
         var dict = new SortedDictionary<float, ListPool<int>>(); // WARN: when iterated allocates over 5 times more than with regular dictionary
-        var occuringWeightsList = new List<float>();
+        var occuringWeightsList = new List<float>(5);
 
         foreach (var element in elements)
         {
