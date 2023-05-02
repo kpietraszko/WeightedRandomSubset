@@ -3,9 +3,9 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-var summary = BenchmarkRunner.Run<Benchmark>(); // return;
-Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
-return;
+//var summary = BenchmarkRunner.Run<Benchmark>(); // return;
+//Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
+//return;
 
 
 // TODO: POSSIBLY THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
@@ -24,7 +24,7 @@ var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
 //    WeightedRandomSubsetGenerator.PickN(allElements, 50); // alloc test
 //}
 
-var samples = 10_000_000;
+var samples = 1_000_000;
 var elementsCountPerWeightValue = allElements.GroupBy(e => e.Weight)
     .ToDictionary(grouping => grouping.Key, grouping => grouping.Count());
 

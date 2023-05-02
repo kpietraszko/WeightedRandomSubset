@@ -10,20 +10,20 @@ public static class WeightedRandomSubsetGenerator
     {
         var pickedElements = new List<int>(numberOfOffersToPick); // allocates ~210 B
 
-        var elementsByWeight = GroupByWeight(allElements, out var occuringWeights);
-        var weightsSum = elementsByWeight.Sum(e => e.Value.Count * e.Key); // allocates ~155 B
+        var elementsByWeight = GroupByWeight(allElements, out var occuringWeights, out var sumOfWeights);
 
         for (int i = 0; i < numberOfOffersToPick; i++)
         {           
-            var randomPoint = Random01() * weightsSum;
+            var randomPoint = Random01() * sumOfWeights;
 
             double currentRangeStart = 0;
 
-            foreach (var weight in occuringWeights)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
+            for (int weightIndex = 0; weightIndex < occuringWeights.Count; weightIndex++)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
             {
+                float weight = occuringWeights[weightIndex];
                 //var weight = kvp.Key;
 
-                var elementsWithThisWeight = elementsByWeight[weight];
+                var elementsWithThisWeight = elementsByWeight[weightIndex];
                 if (elementsWithThisWeight == null || elementsWithThisWeight.Count == 0) // probably redundant
                 {
                     continue;
@@ -39,7 +39,7 @@ public static class WeightedRandomSubsetGenerator
 
                     pickedElements.Add(elementsWithThisWeight[index]);
                     elementsWithThisWeight.RemoveAt(index);
-                    weightsSum -= weight;
+                    sumOfWeights -= weight;
                     break;
                 }
 
@@ -47,35 +47,47 @@ public static class WeightedRandomSubsetGenerator
             }
         }
 
-        foreach (var weight in occuringWeights)
+        for (int i = 0; i < occuringWeights.Count; i++)
         {
-            elementsByWeight[weight].Dispose();
+            elementsByWeight[i].Dispose(); // returns the list to the pool
         }
+
+        elementsByWeight.Dispose();
 
         return pickedElements;
     }
 
-    private static SortedDictionary<float, ListPool<int>> GroupByWeight(IReadOnlyList<WeightedElement> elements, out float[] occuringWeights)
+    private static ListPool<ListPool<int>> GroupByWeight(
+        IReadOnlyList<WeightedElement> elements, 
+        out List<float> occuringWeights,
+        out double sumOfWeights)
     {
-        var dict = new SortedDictionary<float, ListPool<int>>(); // WARN: when iterated allocates over 5 times more than with regular dictionary
-        var occuringWeightsList = new List<float>(5);
+        var elementsPerWeight = new ListPool<ListPool<int>>(5);
+        occuringWeights = new List<float>(5);
 
-        foreach (var element in elements)
+        foreach (var element in elements) // find all weights occuring in the set
         {
-            if (!dict.TryGetValue(element.Weight, out var list))
-            {
-                list = new ListPool<int>(); // providing capacity doesn't change run time or total allocs
-                dict[element.Weight] = list;
-                occuringWeightsList.Add(element.Weight);
-            }
+            var existingWeightIndex = occuringWeights.IndexOf(element.Weight);
 
-            list.Add(element.Id);
+            if (existingWeightIndex == -1)
+            {
+                occuringWeights.Add(element.Weight);
+                elementsPerWeight.Add(new ListPool<int>());
+            }
         }
 
-        occuringWeights = occuringWeightsList.ToArray();
-        Array.Sort(occuringWeights);
+        occuringWeights.Sort();
 
-        return dict;
+        sumOfWeights = 0;
+
+        foreach (var element in elements) // assign elements to appropriate list per weight
+        {
+            var weightIndex = occuringWeights.IndexOf(element.Weight);
+            elementsPerWeight[weightIndex].Add(element.Id);
+            sumOfWeights += element.Weight;
+        }
+
+        return elementsPerWeight;
     }
 
 
