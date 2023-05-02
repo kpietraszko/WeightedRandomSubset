@@ -27,10 +27,10 @@ Odległość wylosowanego punktu od początku tego odcinka, podzielić przez wag
 Otrzymujemy indeks elementu na tej liście - to jest nasz wylosowany element.
 
 ## Benchmark
-**TODO: update**
-| Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
-|------- |---------:|--------:|--------:|-------:|----------:|
-| Pick50 | 416.6 us | 5.29 us | 4.13 us | 1.9531 |   6.38 KB |
+| Method |      Job |  Runtime |     Mean |   Error |  StdDev | Allocated |
+|------- |--------- |--------- |---------:|--------:|--------:|----------:|
+| Pick50 | .NET 6.0 | .NET 6.0 | 384.7 us | 2.37 us | 2.22 us |     625 B |
+| Pick50 | .NET 7.0 | .NET 7.0 | 353.6 us | 2.95 us | 2.76 us |     625 B |
 
 ## Rozkład / Distribution
 Rozkład wylosowanych elementów, pogrupowane po ich wadze. 
