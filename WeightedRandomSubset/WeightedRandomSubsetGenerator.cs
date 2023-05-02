@@ -18,7 +18,7 @@ public static class WeightedRandomSubsetGenerator
 
             double currentRangeStart = 0;
 
-            for (int weightIndex = 0; weightIndex < occuringWeights.Count; weightIndex++)//foreach (var kvp in elementsByWeight) // iterates 5 times (number of possible weights)
+            for (int weightIndex = 0; weightIndex < occuringWeights.Count; weightIndex++) // iterates 5 times (number of possible weights)
             {
                 float weight = occuringWeights[weightIndex];
                 //var weight = kvp.Key;
@@ -52,18 +52,16 @@ public static class WeightedRandomSubsetGenerator
             elementsByWeight[i].Dispose(); // returns the list to the pool
         }
 
-        elementsByWeight.Dispose();
-
         return pickedElements;
     }
 
-    private static ListPool<ListPool<int>> GroupByWeight(
+    private static List<ListPool<int>> GroupByWeight(
         WeightedElement[] elements, 
         out List<float> occuringWeights,
         out double sumOfWeights)
     {
         const int expectedNumberOfWeights = 5;
-        var elementsPerWeight = new ListPool<ListPool<int>>(expectedNumberOfWeights);
+        var elementsPerWeight = new List<ListPool<int>>(expectedNumberOfWeights);
         occuringWeights = new List<float>(expectedNumberOfWeights);
 
         foreach (var element in elements) // find all weights occuring in the set

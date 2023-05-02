@@ -3,9 +3,9 @@ using Spectre.Console;
 using System.Security.Cryptography;
 using WeightedRandomSubset;
 
-//var summary = BenchmarkRunner.Run<Benchmark>(); // return;
-//Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
-//return;
+var summary = BenchmarkRunner.Run<Benchmark>(); // return;
+Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
+return;
 
 var totalOffersCount = 10_000;
 var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
