@@ -27,13 +27,15 @@ Odległość wylosowanego punktu od początku tego odcinka, podzielić przez wag
 Otrzymujemy indeks elementu na tej liście - to jest nasz wylosowany element.
 
 ## Benchmark
+**TODO: update**
 | Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |------- |---------:|--------:|--------:|-------:|----------:|
 | Pick50 | 416.6 us | 5.29 us | 4.13 us | 1.9531 |   6.38 KB |
 
 ## Rozkład / Distribution
 Rozkład wylosowanych elementów, pogrupowane po ich wadze. 
-Wybiera 50 elementów ze zbioru 10 tys. 10 mln powtórzeń:
+Wybiera 50 elementów ze zbioru 10 tys.  
+10 mln powtórzeń:
 
 ![image](https://user-images.githubusercontent.com/17947254/235504798-088d18e4-3f36-41fc-8fa2-7e1807dc0fb1.png)
 
@@ -51,11 +53,10 @@ _the algorithm assumes that there's a finite number of possible priorities - ten
 ![grouped](https://user-images.githubusercontent.com/17947254/235474801-1dac13e2-d2e1-41f9-8937-0b10b129f424.svg)
 
 4. N times (where N is the number of elements we wish to retrieve):
-    1. Pick a random point on the line (number between 0 and all elements' weights' sum)
+    1. Pick a random point on the line (number between 0 and the sum of all elements' weights)
     2. Calculate the ranges of the lists from step 3 (list's count times its weight)
     3. Find out which element lies on this point (see below)
     4. Shorten the line (the randomisation range) by the weight of the picked element
-
   
 #### Details of step 4.iii
 Based on the ranges from step 4.ii determine on which list the element/point lies.
