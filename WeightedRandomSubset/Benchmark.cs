@@ -1,13 +1,15 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 using System.Security.Cryptography;
 
 namespace WeightedRandomSubset;
 
-[SimpleJob]
+[SimpleJob(RuntimeMoniker.Net60)]
+[SimpleJob(RuntimeMoniker.Net70)]
 [MemoryDiagnoser]
 public class Benchmark
 {
-    private IReadOnlyList<WeightedElement> _allOffers;
+    private WeightedElement[] _allOffers;
 
     [GlobalSetup]
     public void Setup()

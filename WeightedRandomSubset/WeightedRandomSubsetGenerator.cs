@@ -6,7 +6,7 @@ namespace WeightedRandomSubset;
 public static class WeightedRandomSubsetGenerator
 {
     /// <returns>List of result Ids</returns>
-    public static IReadOnlyList<int> PickN(IReadOnlyList<WeightedElement> allElements, int numberOfOffersToPick)
+    public static IReadOnlyList<int> PickN(WeightedElement[] allElements, int numberOfOffersToPick)
     {
         var pickedElements = new List<int>(numberOfOffersToPick); // allocates ~210 B
 
@@ -58,12 +58,13 @@ public static class WeightedRandomSubsetGenerator
     }
 
     private static ListPool<ListPool<int>> GroupByWeight(
-        IReadOnlyList<WeightedElement> elements, 
+        WeightedElement[] elements, 
         out List<float> occuringWeights,
         out double sumOfWeights)
     {
-        var elementsPerWeight = new ListPool<ListPool<int>>(5);
-        occuringWeights = new List<float>(5);
+        const int expectedNumberOfWeights = 5;
+        var elementsPerWeight = new ListPool<ListPool<int>>(expectedNumberOfWeights);
+        occuringWeights = new List<float>(expectedNumberOfWeights);
 
         foreach (var element in elements) // find all weights occuring in the set
         {

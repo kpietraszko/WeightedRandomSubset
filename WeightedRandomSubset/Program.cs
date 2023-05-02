@@ -7,9 +7,6 @@ using WeightedRandomSubset;
 //Console.WriteLine($"kB allocated total: {summary.Reports[0].GcStats.GetTotalAllocatedBytes(true)}");
 //return;
 
-
-// TODO: POSSIBLY THERE'S A RARE INDEXOUTOFRANGE EXCEPTION, TRACK IT DOWN. Can't reproduce, for some reason
-
 var totalOffersCount = 10_000;
 var allElements = Enumerable.Range(0, totalOffersCount).Select(i =>
 {
